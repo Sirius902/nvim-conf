@@ -18,4 +18,10 @@ return {
       vim.keymap.set('n', '<C-s>', function() ui.nav_file(4) end)
     end,
   },
+  {
+    'mbbill/undotree',
+    config = function ()
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+    end,
+  },
 }
