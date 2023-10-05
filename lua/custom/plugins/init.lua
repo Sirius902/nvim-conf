@@ -24,4 +24,7 @@ return {
       vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
     end,
   },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+  },
 }
