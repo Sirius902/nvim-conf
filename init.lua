@@ -142,6 +142,7 @@ require('lazy').setup({
     -- See `:help indent_blankline.txt`
     main = "ibl",
     opts = {},
+    enabled = not vim.g.vscode,
   },
 
   -- "gc" to comment visual regions/lines
