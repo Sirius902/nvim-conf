@@ -258,6 +258,8 @@ vim.bo.expandtab = true
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>wt', [[:lua vim.lsp.buf.format()<cr> <bar> :%s/\s\+$//e<cr>]])
 
+vim.keymap.set('n', '<leader>or', require('telescope.builtin').oldfiles)
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
