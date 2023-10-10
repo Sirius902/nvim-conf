@@ -467,7 +467,6 @@ local servers = {
   astro = {},
   zls = {},
   lemminx = {},
-  metals = {},
 
   lua_ls = {
     Lua = {
