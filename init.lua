@@ -42,7 +42,7 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
+      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
@@ -89,16 +89,24 @@ require('lazy').setup({
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
-        vim.keymap.set({'n', 'v'}, ']c', function()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(function() gs.next_hunk() end)
+        vim.keymap.set({ 'n', 'v' }, ']c', function()
+          if vim.wo.diff then
+            return ']c'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to next hunk"})
-        vim.keymap.set({'n', 'v'}, '[c', function()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(function() gs.prev_hunk() end)
+        end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
+        vim.keymap.set({ 'n', 'v' }, '[c', function()
+          if vim.wo.diff then
+            return '[c'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to previous hunk"})
+        end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
       end,
     },
   },
@@ -140,7 +148,7 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    main = "ibl",
+    main = 'ibl',
     opts = {
       scope = {
         enabled = false,
@@ -322,7 +330,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'zig', 'html', 'css', 'astro', 'json', 'xml', 'scala' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'zig', 'html', 'css', 'astro', 'json', 'xml', 'scala' },
   
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -437,7 +445,7 @@ local on_attach = function(_, bufnr)
 end
 
 -- document existing key chains
-require('which-key').register({
+require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
@@ -445,7 +453,12 @@ require('which-key').register({
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-})
+}
+
+-- mason-lspconfig requires that these setup functions are called in this order
+-- before setting up the servers.
+require('mason').setup()
+require('mason-lspconfig').setup()
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -498,7 +511,7 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
     }
-  end
+  end,
 }
 
 -- [[ Configure nvim-cmp ]]
