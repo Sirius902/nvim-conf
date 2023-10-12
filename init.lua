@@ -268,7 +268,7 @@ vim.keymap.set('n', '<leader>pd', [[:cd %:p:h<cr>]], { desc = '[P]roject Set Cur
 vim.keymap.set('n', '<leader>cw', [[:%s/\s\+$//e<cr>]], { desc = '[C]ode [W]hitespace Trim' })
 vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { desc = '[C]ode [F]ormat' })
 
-if vim.fn.has('windows') then
+if vim.fn.has('win32') then
   if vim.fn.executable('pwsh') then
     vim.opt.shell = 'pwsh'
   else
