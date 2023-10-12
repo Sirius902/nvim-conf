@@ -268,6 +268,20 @@ vim.keymap.set('n', '<leader>pd', [[:cd %:p:h<cr>]], { desc = '[P]roject Set Cur
 vim.keymap.set('n', '<leader>cw', [[:%s/\s\+$//e<cr>]], { desc = '[C]ode [W]hitespace Trim' })
 vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { desc = '[C]ode [F]ormat' })
 
+if vim.fn.has('windows') then
+  if vim.fn.executable('pwsh') then
+    vim.opt.shell = 'pwsh'
+  else
+    vim.opt.shell = 'powershell'
+  end
+
+  vim.o.shellcmdflag = [[-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';]]
+  vim.o.shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+  vim.o.shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+  vim.o.shellquote = ''
+  vim.o.shellxquote = ''
+end
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
