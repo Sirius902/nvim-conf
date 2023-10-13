@@ -496,7 +496,6 @@ local servers = {
   astro = {},
   zls = {},
   lemminx = {},
-  cmake = {},
 
   lua_ls = {
     Lua = {
