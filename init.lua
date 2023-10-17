@@ -476,6 +476,13 @@ require('which-key').register {
 require('mason').setup()
 require('mason-lspconfig').setup()
 
+-- Use custom ZLS binary according to ZLS_PATH environment variable
+local zls_config = {}
+local zls_path = os.getenv('ZLS_PATH')
+if zls_path ~= nil then
+  zls_config.cmd = {zls_path}
+end
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -494,7 +501,7 @@ local servers = {
   cssls = {},
   jsonls = {},
   astro = {},
-  zls = {},
+  zls = zls_config,
   lemminx = {},
 
   lua_ls = {
@@ -526,6 +533,7 @@ mason_lspconfig.setup_handlers {
       on_attach = on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
+      cmd = (servers[server_name] or {}).cmd,
     }
   end,
 }
