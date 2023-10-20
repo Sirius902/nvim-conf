@@ -71,7 +71,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -275,11 +275,12 @@ if vim.fn.has('win32') == 1 then
     vim.opt.shell = 'powershell'
   end
 
-  vim.o.shellcmdflag = [[-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';]]
-  vim.o.shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-  vim.o.shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
-  vim.o.shellquote = ''
-  vim.o.shellxquote = ''
+  vim.o.shellcmdflag =
+  [[-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';]]
+  vim.o.shellredir   = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+  vim.o.shellpipe    = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+  vim.o.shellquote   = ''
+  vim.o.shellxquote  = ''
 end
 
 -- [[ Basic Keymaps ]]
@@ -480,7 +481,7 @@ require('mason-lspconfig').setup()
 local zls_config = {}
 local zls_path = os.getenv('ZLS_PATH')
 if zls_path ~= nil then
-  zls_config.cmd = {zls_path}
+  zls_config.cmd = { zls_path }
 end
 
 -- Enable the following language servers
