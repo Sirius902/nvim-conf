@@ -272,7 +272,7 @@ vim.keymap.set('n', '<leader>pg', function()
   end
   local git_root = vim.fn.fnamemodify(dot_git_path, ':h')
   vim.api.nvim_set_current_dir(git_root)
-  print(git_root)
+  print(vim.fn.getcwd())
 end, { desc = '[P]roject CD To [G]it Root' })
 vim.keymap.set('n', '<leader>cw', [[:%s/\s\+$//e<cr>]], { desc = '[C]ode [W]hitespace Trim' })
 vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { desc = '[C]ode [F]ormat' })
