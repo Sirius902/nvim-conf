@@ -36,16 +36,4 @@ return {
     ft = { 'markdown' },
     build = function() vim.fn['mkdp#util#install']() end,
   },
-  {
-    'princejoogie/dir-telescope.nvim',
-    requires = { 'nvim-telescope/telescope.nvim' },
-    config = function()
-      require('dir-telescope').setup({
-        -- default options
-        hidden = true,
-        no_ignore = false,
-        show_preview = true,
-      })
-    end,
-  },
 }
