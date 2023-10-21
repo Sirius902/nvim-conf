@@ -266,14 +266,19 @@ vim.bo.expandtab = true
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = '[P]roject [V]iew' })
 vim.keymap.set('n', '<leader>pd', [[:cd %:p:h<cr>:pwd<cr>]], { desc = '[P]roject Set Current [D]irectory' })
 vim.keymap.set('n', '<leader>pg', function()
-  local dot_git_path = vim.fn.finddir('.git', '.;')
-  if dot_git_path == '' then
-    print('File is not in a git project')
-    return
+  -- Find git root relative to current buffer's path
+  local git_job = vim.system({ 'git', 'rev-parse', '--show-toplevel' }, {
+    text = true,
+    cwd = vim.fn.expand('%:p:h'),
+  }):wait()
+
+  if git_job.code == 0 then
+    local git_root = git_job.stdout:sub(0, -2)
+    vim.api.nvim_set_current_dir(git_root)
+    print(git_root)
+  else
+    print(git_job.stderr:sub(0, -2))
   end
-  local git_root = vim.fn.fnamemodify(dot_git_path, ':h')
-  vim.api.nvim_set_current_dir(git_root)
-  print(vim.fn.getcwd())
 end, { desc = '[P]roject CD To [G]it Root' })
 vim.keymap.set('n', '<leader>cw', [[:%s/\s\+$//e<cr>]], { desc = '[C]ode [W]hitespace Trim' })
 vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { desc = '[C]ode [F]ormat' })
