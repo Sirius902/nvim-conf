@@ -265,6 +265,7 @@ vim.bo.expandtab = true
 
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = '[P]roject [V]iew' })
 vim.keymap.set('n', '<leader>pd', [[:cd %:p:h<cr>:pwd<cr>]], { desc = '[P]roject Set Current [D]irectory' })
+
 vim.keymap.set('n', '<leader>pg', function()
   local buf_dir = vim.fn.expand('%:p:h')
   -- `vim.fn.expand` will not return `string[]` with these parameters.
@@ -283,6 +284,23 @@ vim.keymap.set('n', '<leader>pg', function()
     print(git_job.stderr:sub(0, -2))
   end
 end, { desc = '[P]roject CD To [G]it Root' })
+
+vim.keymap.set('n', '<leader>pl', function()
+  local workspace_folders = vim.lsp.buf.list_workspace_folders()
+  if #workspace_folders == 0 then
+    print('There are no workspace folders')
+  elseif #workspace_folders == 1 then
+    vim.api.nvim_set_current_dir(workspace_folders[1])
+    print(workspace_folders[1])
+  else
+    vim.ui.select(workspace_folders,
+      { prompt = "Select a workspace folder" },
+      function(choice)
+        vim.api.nvim_set_current_dir(choice)
+      end)
+  end
+end, { desc = '[P]roject CD to [L]sp Workspace' })
+
 vim.keymap.set('n', '<leader>cw', [[:%s/\s\+$//e<cr>]], { desc = '[C]ode [W]hitespace Trim' })
 vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { desc = '[C]ode [F]ormat' })
 
