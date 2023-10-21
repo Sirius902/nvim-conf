@@ -266,10 +266,13 @@ vim.bo.expandtab = true
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = '[P]roject [V]iew' })
 vim.keymap.set('n', '<leader>pd', [[:cd %:p:h<cr>:pwd<cr>]], { desc = '[P]roject Set Current [D]irectory' })
 vim.keymap.set('n', '<leader>pg', function()
-  -- Find git root relative to current buffer's path
+  local buf_dir = vim.fn.expand('%:p:h')
+  -- `vim.fn.expand` will not return `string[]` with these parameters.
+  ---@cast buf_dir string
+
   local git_job = vim.system({ 'git', 'rev-parse', '--show-toplevel' }, {
     text = true,
-    cwd = vim.fn.expand('%:p:h'),
+    cwd = buf_dir,
   }):wait()
 
   if git_job.code == 0 then
