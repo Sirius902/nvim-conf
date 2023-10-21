@@ -264,7 +264,7 @@ vim.o.expandtab = true
 vim.bo.expandtab = true
 
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = '[P]roject [V]iew' })
-vim.keymap.set('n', '<leader>pd', [[:cd %:p:h<cr>]], { desc = '[P]roject Set Current [D]irectory' })
+vim.keymap.set('n', '<leader>pd', [[:cd %:p:h<cr>:pwd<cr>]], { desc = '[P]roject Set Current [D]irectory' })
 vim.keymap.set('n', '<leader>cw', [[:%s/\s\+$//e<cr>]], { desc = '[C]ode [W]hitespace Trim' })
 vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { desc = '[C]ode [F]ormat' })
 
