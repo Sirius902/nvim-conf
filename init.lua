@@ -269,6 +269,7 @@ vim.keymap.set('n', '<leader>pg', function()
   local dot_git_path = vim.fn.finddir('.git', '.;')
   if dot_git_path == '' then
     print('File is not in a git project')
+    return
   end
   local git_root = vim.fn.fnamemodify(dot_git_path, ':h')
   vim.api.nvim_set_current_dir(git_root)
