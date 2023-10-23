@@ -301,6 +301,10 @@ vim.keymap.set('n', '<leader>pl', function()
   end
 end, { desc = '[P]roject CD to [L]sp Workspace' })
 
+vim.keymap.set('n', '<leader>p*', function()
+  vim.fn.setreg('*', vim.fn.getcwd())
+end, { desc = '[P]roject CWD to [*]' })
+
 vim.keymap.set('n', '<leader>cw', [[:%s/\s\+$//e<cr>]], { desc = '[C]ode [W]hitespace Trim' })
 vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { desc = '[C]ode [F]ormat' })
 
@@ -318,9 +322,6 @@ if vim.fn.has('win32') == 1 then
   vim.o.shellquote   = ''
   vim.o.shellxquote  = ''
 end
-vim.keymap.set('n', '<leader>p*', function()
-  vim.fn.setreg('*', vim.fn.getcwd())
-end, { desc = '[P]roject CWD to [*]' })
 
 -- [[ Basic Keymaps ]]
 
