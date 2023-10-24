@@ -320,9 +320,6 @@ if vim.fn.has('win32') == 1 then
   vim.o.shellpipe    = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
   vim.o.shellquote   = ''
   vim.o.shellxquote  = ''
-  -- TODO: Check and see if this acutally breaks anything, allegedly it could
-  -- cause problems.
-  vim.o.shellslash   = true
 end
 
 -- [[ Basic Keymaps ]]
