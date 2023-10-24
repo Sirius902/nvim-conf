@@ -293,7 +293,7 @@ vim.keymap.set('n', '<leader>pl', function()
     print(workspace_folders[1])
   else
     vim.ui.select(workspace_folders,
-      { prompt = "Select a workspace folder" },
+      { prompt = 'Select a workspace folder' },
       function(choice)
         vim.api.nvim_set_current_dir(choice)
       end)
