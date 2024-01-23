@@ -611,11 +611,11 @@ require('which-key').register({
 require('mason').setup()
 require('mason-lspconfig').setup()
 
--- Use custom ZLS binary according to ZLS_PATH environment variable
+-- Use custom ZLS binary according to ZLS_HOME environment variable
 local zls_config = {}
-local zls_path = os.getenv('ZLS_PATH')
-if zls_path ~= nil then
-  zls_config.cmd = { zls_path }
+local zls_home = os.getenv('ZLS_HOME')
+if zls_home ~= nil then
+  zls_config.cmd = { zls_home }
 end
 
 -- Enable the following language servers
