@@ -615,7 +615,12 @@ require('mason-lspconfig').setup()
 local zls_config = {}
 local zls_home = os.getenv('ZLS_HOME')
 if zls_home ~= nil then
-  zls_config.cmd = { zls_home }
+  local zls_bin = vim.fs.joinpath(zls_home, 'zls')
+  if vim.fn.has('win32') == 1 then
+    zls_bin = zls_bin .. '.exe'
+  end
+
+  zls_config.cmd = { zls_bin }
 end
 
 -- Enable the following language servers
