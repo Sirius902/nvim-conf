@@ -665,7 +665,6 @@ local servers = {
   astro = {},
   zls = zls_config,
   lemminx = {},
-  csharp_ls = {},
 
   lua_ls = {
     Lua = {
@@ -676,6 +675,11 @@ local servers = {
     },
   },
 }
+
+-- Only enable csharp_ls on Windows because it doesn't support Linux.
+if vim.fn.has('win32') == 1 then
+  servers.csharp_ls = {}
+end
 
 -- Setup neovim lua configuration
 require('neodev').setup()
