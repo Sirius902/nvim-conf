@@ -494,7 +494,7 @@ vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
-      'bash', 'zig', 'html', 'css', 'astro', 'json', 'xml', 'scala', 'cmake', 'c_sharp', 'glsl' },
+      'bash', 'zig', 'html', 'css', 'astro', 'json', 'xml', 'scala', 'cmake', 'c_sharp', 'glsl', 'wgsl' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -660,6 +660,7 @@ local servers = {
   astro = {},
   zls = zls_config,
   lemminx = {},
+  wgsl_analyzer = {},
 
   lua_ls = {
     Lua = {
