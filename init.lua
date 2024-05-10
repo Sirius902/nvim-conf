@@ -633,15 +633,10 @@ require('which-key').register({
 require('mason').setup()
 require('mason-lspconfig').setup()
 
--- Use custom ZLS binary according to ZLS_HOME environment variable
+-- Use custom ZLS binary according to environment variable
 local zls_config = {}
-local zls_home = os.getenv('ZLS_HOME')
-if zls_home ~= nil then
-  local zls_bin = vim.fs.joinpath(zls_home, 'zls')
-  if vim.fn.has('win32') == 1 then
-    zls_bin = zls_bin .. '.exe'
-  end
-
+local zls_bin = os.getenv('ZLS')
+if zls_bin ~= nil then
   zls_config.cmd = { zls_bin }
 end
 
