@@ -687,9 +687,27 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
+local function linuxRelease()
+  if vim.fn.has 'linux' == 0 then return end
+
+  local release_job = vim.system({ 'cat', '/etc/os-release' }, { text = true }):wait()
+  local grep_job = vim.system({ 'grep', '^ID' }, { text = true, stdin = release_job.stdout }):wait()
+  local sed_job = vim.system({ 'sed', '-e', 's/^ID=//' }, { text = true, stdin = grep_job.stdout }):wait()
+
+  if sed_job.code == 0 then
+    return sed_job.stdout:sub(0, -2)
+  end
+end
+
+local function isNixOs()
+  return linuxRelease() == 'nixos'
+end
+
+if not isNixOs() then
+  mason_lspconfig.setup {
+    ensure_installed = vim.tbl_keys(servers),
+  }
+end
 
 mason_lspconfig.setup_handlers {
   function(server_name)
