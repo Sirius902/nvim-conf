@@ -20,6 +20,22 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local function linuxRelease()
+  if vim.fn.has 'linux' == 0 then return end
+
+  local release_job = vim.system({ 'cat', '/etc/os-release' }, { text = true }):wait()
+  local grep_job = vim.system({ 'grep', '^ID' }, { text = true, stdin = release_job.stdout }):wait()
+  local sed_job = vim.system({ 'sed', '-e', 's/^ID=//' }, { text = true, stdin = grep_job.stdout }):wait()
+
+  if sed_job.code == 0 then
+    return sed_job.stdout:sub(0, -2)
+  end
+end
+
+local function isNixOs()
+  return linuxRelease() == 'nixos'
+end
+
 -- [[ Configure plugins ]]
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
@@ -491,10 +507,15 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
+  local ensure_installed = {}
+  if not isNixOs() then
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
+      'bash', 'zig', 'html', 'css', 'astro', 'json', 'xml', 'scala', 'cmake', 'c_sharp', 'glsl', 'wgsl', 'markdown' }
+  end
+
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
-      'bash', 'zig', 'html', 'css', 'astro', 'json', 'xml', 'scala', 'cmake', 'c_sharp', 'glsl', 'wgsl', 'markdown' },
+    ensure_installed = ensure_installed,
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -695,22 +716,6 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
-
-local function linuxRelease()
-  if vim.fn.has 'linux' == 0 then return end
-
-  local release_job = vim.system({ 'cat', '/etc/os-release' }, { text = true }):wait()
-  local grep_job = vim.system({ 'grep', '^ID' }, { text = true, stdin = release_job.stdout }):wait()
-  local sed_job = vim.system({ 'sed', '-e', 's/^ID=//' }, { text = true, stdin = grep_job.stdout }):wait()
-
-  if sed_job.code == 0 then
-    return sed_job.stdout:sub(0, -2)
-  end
-end
-
-local function isNixOs()
-  return linuxRelease() == 'nixos'
-end
 
 if not isNixOs() then
   mason_lspconfig.setup {
