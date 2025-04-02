@@ -101,6 +101,13 @@
           lua-language-server
           nixd
           stylua
+
+          vscode-langservers-extracted
+          emmet-language-server
+          superhtml
+          typescript-language-server
+          htmx-lsp
+          pyright
         ];
         kickstart-debug = [
           delve
@@ -132,7 +139,6 @@
           cmp_luasnip
           cmp-nvim-lsp
           cmp-path
-          tokyonight-nvim
           todo-comments-nvim
           mini-nvim
           nvim-treesitter.withAllGrammars
@@ -143,6 +149,9 @@
           #     lua
           #   ]
           # ))
+
+          gruvbox-nvim
+          nvim-treesitter-context
         ];
         kickstart-debug = [
           nvim-dap
@@ -239,7 +248,7 @@
           wrapRc = true;
           # IMPORTANT:
           # your alias may not conflict with your other packages.
-          aliases = [ "vim" ];
+          aliases = [ "vi" "vim" ];
           # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
         };
         # and a set of categories that you want
