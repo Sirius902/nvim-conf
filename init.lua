@@ -671,7 +671,11 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         servers.nixd = {}
       else
         servers.rnix = {}
-        servers.nil_ls = {}
+
+        -- FUTURE(Sirius902) nil fails to compile on Windows
+        if vim.fn.has 'win32' == 0 then
+          servers.nil_ls = {}
+        end
       end
       servers.lua_ls = {
         -- cmd = {...},
