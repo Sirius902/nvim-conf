@@ -110,7 +110,8 @@
           pyright
         ];
         kickstart-debug = [
-          delve
+          # NOTE(Sirius902) go debugger
+          # delve
         ];
         kickstart-lint = [
           markdownlint-cli
