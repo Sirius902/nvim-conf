@@ -43,7 +43,7 @@
   # see :help nixCats.flake.outputs
   outputs = { self, nixpkgs, nixCats, ... }@inputs: let
     inherit (nixCats) utils;
-    luaPath = "${./.}";
+    luaPath = ./.;
     forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
     # the following extra_pkg_config contains any values
     # which you want to pass to the config set of nixpkgs
@@ -59,7 +59,7 @@
     # It gets resolved within the builder itself, and then passed to your
     # categoryDefinitions and packageDefinitions.
 
-    # this allows you to use ${pkgs.system} whenever you want in those sections
+    # this allows you to use ${pkgs.stdenv.hostPlatform.system} whenever you want in those sections
     # without fear.
 
     dependencyOverlays = /* (import ./overlays inputs) ++ */ [
@@ -99,6 +99,7 @@
           stdenv.cc.cc
           nix-doc
           lua-language-server
+          tree-sitter
           nixd
           stylua
 
@@ -215,6 +216,7 @@
 
       # lists of the functions you would have passed to
       # python.withPackages or lua.withPackages
+      # do not forget to set `hosts.python3.enable` in package settings
 
       # get the path to this python environment
       # in your lua config via
@@ -250,7 +252,7 @@
           # IMPORTANT:
           # your alias may not conflict with your other packages.
           aliases = [ "vi" "vim" ];
-          # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+          # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
           hosts.python3.enable = true;
           hosts.node.enable = true;
         };
