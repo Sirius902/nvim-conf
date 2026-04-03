@@ -894,7 +894,6 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     priority = 1000,
     init = function()
       vim.g.everforest_enable_italic = true
-      vim.g.everforest_background = 'hard'
     end,
     config = function()
       vim.cmd.colorscheme 'everforest'
