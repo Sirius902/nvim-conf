@@ -152,7 +152,7 @@
           #   ]
           # ))
 
-          everforest
+          kanagawa-nvim
           nvim-treesitter-context
         ];
         kickstart-debug = [

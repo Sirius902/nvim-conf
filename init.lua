@@ -889,14 +889,11 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
   },
 
   {
-    'sainnhe/everforest',
+    'rebelot/kanagawa.nvim',
     lazy = false,
     priority = 1000,
-    init = function()
-      vim.g.everforest_enable_italic = true
-    end,
     config = function()
-      vim.cmd.colorscheme 'everforest'
+      vim.cmd.colorscheme 'kanagawa'
     end,
   },
 
