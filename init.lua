@@ -889,10 +889,15 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
   },
 
   {
-    'ellisonleao/gruvbox.nvim',
+    'sainnhe/everforest',
+    lazy = false,
     priority = 1000,
     init = function()
-      vim.cmd.colorscheme 'gruvbox'
+      vim.g.everforest_enable_italic = true
+      vim.g.everforest_background = 'hard'
+    end,
+    config = function()
+      vim.cmd.colorscheme 'everforest'
     end,
   },
 

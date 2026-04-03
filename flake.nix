@@ -152,7 +152,7 @@
           #   ]
           # ))
 
-          gruvbox-nvim
+          everforest
           nvim-treesitter-context
         ];
         kickstart-debug = [
