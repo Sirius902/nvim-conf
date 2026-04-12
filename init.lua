@@ -893,13 +893,6 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
     lazy = false,
     priority = 1000,
     config = function()
-      require('kanagawa').setup {
-        overrides = function(colors)
-          return {
-            ['@variable.member.nix'] = { fg = colors.palette.waveAqua2 },
-          }
-        end,
-      }
       vim.cmd.colorscheme 'kanagawa'
     end,
   },
