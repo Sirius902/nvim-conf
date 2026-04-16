@@ -653,7 +653,6 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       servers.emmet_language_server = {}
       servers.jinja_lsp = {}
       servers.superhtml = {}
-      servers.htmx = {}
       servers.ts_ls = {}
       servers.zls = {}
       servers.ols = {}

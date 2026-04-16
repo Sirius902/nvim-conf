@@ -107,7 +107,6 @@
           emmet-language-server
           superhtml
           typescript-language-server
-          htmx-lsp
           pyright
         ];
         kickstart-debug = [
